@@ -17,6 +17,8 @@ typedef enum {
 @class GPageFlipper;
 
 @protocol GPageFlipperDataSource
+
+- (UIView *) currentViewInFlipper:(GPageFlipper *) pageFlipper;
 - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
 - (UIView *) prevView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
 
@@ -51,7 +53,6 @@ typedef enum {
 @property (nonatomic, assign) id<GPageFlipperDelegate> delegate;
 @property (nonatomic, assign) BOOL disabled;
 
-- (id)initWithFrame:(CGRect) frame forView:(UIView *) initView;
 
 @end
 

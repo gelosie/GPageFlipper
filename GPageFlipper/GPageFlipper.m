@@ -42,6 +42,8 @@
 
 - (void) swiped:(UISwipeGestureRecognizer *)recognizer;
 - (void) tapped:(UITapGestureRecognizer *) recognizer;
+
+- (void) initCurrentView;
 @end
 
 #pragma mark - GPageFlipper implementation
@@ -55,7 +57,7 @@
 	return [CATransformLayer class];
 }
 
-- (id)initWithFrame:(CGRect) frame forView:(UIView *) initView
+- (id)initWithFrame:(CGRect) frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -73,9 +75,6 @@
         disabled = NO;
         loadedNextView = NO;
         loadedPrevView = NO;
-        
-        currentView = initView;
-        [self addSubview:currentView];
     }
     return self;
 }
@@ -141,8 +140,16 @@
 - (void) setDataSource:(id<GPageFlipperDataSource>)aDataSource
 {
     dataSource = aDataSource;
+    //[self asynLoadInvisibleView];
+    [self performSelectorInBackground:@selector(initCurrentView) withObject:nil];
+}
+
+- (void) initCurrentView
+{
+    currentView = [dataSource currentViewInFlipper:self];
+    currentView.frame = self.bounds;
+    [self addSubview:currentView];
     [self asynLoadInvisibleView];
-    
 }
 
 - (void) asynLoadInvisibleView
@@ -160,6 +167,7 @@
     }
     nextView = [dataSource nextView:currentView inFlipper:self];
     if (nextView != nil) {
+        nextView.frame = self.bounds;
         nextView.alpha = 0.0;
         [self addSubview:nextView];
     }
@@ -174,6 +182,7 @@
     }
     prevView = [dataSource prevView:currentView inFlipper:self];
     if (prevView != nil) {
+        prevView.frame = self.bounds;
         prevView.alpha = 0.0;
         [self addSubview:prevView];
     }

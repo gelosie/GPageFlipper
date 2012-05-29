@@ -41,12 +41,8 @@
     [super loadView];
     self.view.autoresizesSubviews = YES;
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	
-    ColorView *iv = [[ColorView alloc]initWithFrame:CGRectMake(0.0, 0.0, 300.0, 300.0)];
-    [iv  setIndex : 0];
-    
-    
-	flipper = [[GPageFlipper alloc]initWithFrame:CGRectMake(100.0, 100.0, 300.0, 300.0) forView:iv];
+
+	flipper = [[GPageFlipper alloc]initWithFrame:CGRectMake(100.0, 100.0, 300.0, 300.0)];
 	flipper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	flipper.dataSource = self;
     //[flipper loadInvisibleView];
@@ -66,6 +62,14 @@
     return YES;
 }
 
+
+- (UIView *) currentViewInFlipper:(GPageFlipper *) pageFlipper
+{
+    ColorView *iv = [[ColorView alloc]initWithFrame:pageFlipper.bounds];
+    [iv  setIndex : 0];
+    return iv;
+}
+
 - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper
 {
     NSInteger i = ((ColorView *)currentView).index;
@@ -73,7 +77,7 @@
         return nil;
     }
     i++;
-    ColorView *cv = [[ColorView alloc]initWithFrame:currentView.bounds];
+    ColorView *cv = [[ColorView alloc]initWithFrame:pageFlipper.bounds];
     [cv  setIndex :i];
     return  cv;
 }
@@ -85,7 +89,7 @@
         return nil;
     }
     i--;
-    ColorView *cv = [[ColorView alloc]initWithFrame:currentView.bounds];
+    ColorView *cv = [[ColorView alloc]initWithFrame:pageFlipper.bounds];
     [cv  setIndex :i];
     return  cv;
 }
