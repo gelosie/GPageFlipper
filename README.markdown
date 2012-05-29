@@ -6,7 +6,7 @@ GPageFlipper is modify from AFKPageFlipper (https://github.com/mtabini/AFKPageFl
 
 ----
     @protocol GPageFlipperDataSource
-        - (UIView *) initCurrentViewForFlipper:(GPageFlipper *) pageFlipper;
+        - (UIView *) currentViewToInitFlipper:(GPageFlipper *) pageFlipper;
         - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
         - (UIView *) prevView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
     @end

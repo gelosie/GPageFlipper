@@ -146,7 +146,7 @@
 
 - (void) initCurrentView
 {
-    currentView = [dataSource currentViewInFlipper:self];
+    currentView = [dataSource currentViewToInitFlipper:self];
     currentView.frame = self.bounds;
     [self addSubview:currentView];
     [self asynLoadInvisibleView];

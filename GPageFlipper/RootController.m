@@ -63,7 +63,7 @@
 }
 
 
-- (UIView *) currentViewInFlipper:(GPageFlipper *) pageFlipper
+- (UIView *) currentViewToInitFlipper:(GPageFlipper *) pageFlipper
 {
     ColorView *iv = [[ColorView alloc]initWithFrame:pageFlipper.bounds];
     [iv  setIndex : 0];

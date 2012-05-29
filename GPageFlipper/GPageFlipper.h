@@ -18,7 +18,7 @@ typedef enum {
 
 @protocol GPageFlipperDataSource
 
-- (UIView *) initCurrentViewForFlipper:(GPageFlipper *) pageFlipper;
+- (UIView *) currentViewToInitFlipper:(GPageFlipper *) pageFlipper; // init current view
 - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
 - (UIView *) prevView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
 
