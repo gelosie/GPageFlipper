@@ -54,15 +54,15 @@
 	return [CATransformLayer class];
 }
 
-- (id)initWithView:(UIView *) initView
+- (id)initWithFrame:(CGRect) frame forView:(UIView *) initView
 {
-    self = [super initWithFrame:initView.frame];
+    self = [super initWithFrame:frame];
     if (self) {
         
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
 		UISwipeGestureRecognizer *leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
         leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-        UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(channelCovswipederDidSwipe:)];
+        UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
         rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:tapRecognizer];
         [self addGestureRecognizer:leftSwipeRecognizer];
@@ -84,34 +84,29 @@
     if (animating || self.disabled) {
 		return;
 	}
-	
+	NSLog(@"----------taped");
 	if (recognizer.state == UIGestureRecognizerStateRecognized) {
 		if ([recognizer locationInView:self].x < (self.bounds.size.width - self.bounds.origin.x) / 2) {
             flipDirection = GPageFlipperDirectionRight;
-            NSLog(@"-----prev-tapped");
             if (prevView == nil) {
-                NSLog(@"-----prev-tapped=nil");
                 return;
             }
 		} else {
             flipDirection = GPageFlipperDirectionLeft;
-            NSLog(@"-----next-tapped");
             if (nextView == nil) {
-                NSLog(@"-----next-tapped=nil");
                 return;
             }
 		}
 	}
-    NSLog(@"-----flip");
     animating = YES;
     [self initFlip];
-    [self performSelector:@selector(flipPage) withObject:Nil afterDelay:0.001];
+    [self performSelector:@selector(flipPage) withObject:nil afterDelay:0.001];
 }
 
 
 -(void)swiped:(UISwipeGestureRecognizer *)recognizer{
     if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-
+        
     }else if(recognizer.direction == UISwipeGestureRecognizerDirectionRight){
         
     }
@@ -128,7 +123,6 @@
 {
     loadedView = NO;
     [self performSelectorInBackground:@selector(loadInvisibleView) withObject:nil];
-    //[self loadInvisibleView];
 }
 
 - (void) loadInvisibleView
@@ -137,19 +131,16 @@
     if (dataSource != nil) {
         prevView = [dataSource prevView:currentView inFlipper:self];
         if (prevView != nil) {
-            //[prevView setNeedsDisplay];
             prevView.alpha = 0.0;
             [self addSubview:prevView];
         }
         nextView = [dataSource nextView:currentView inFlipper:self];
         if (nextView != nil) {
-            //[nextView setNeedsDisplay];
             nextView.alpha = 0.0;
             [self addSubview:nextView];
         }
     }
     loadedView = YES;
-    NSLog(@"---------------------(00)loadInvisibleView");
 }
 
 
@@ -157,9 +148,16 @@
     
 	
 	// Create screenshots of view
+    UIImage *currentImage = nil;
+	UIImage *newImage = nil;
+	if (flipDirection == GPageFlipperDirectionLeft) {
+        currentImage = [currentView saveRenderShots];
+        newImage = [nextView saveRenderShots];
+    }else{
+        currentImage = [currentView saveRenderShots];
+        newImage = [prevView saveRenderShots];
+    }
 	
-	UIImage *currentImage = [currentView saveRenderShots];
-	UIImage *newImage = [nextView saveRenderShots];
 	
 	
 	// Hide existing views
@@ -259,7 +257,6 @@
 
 
 - (void) setFlipProgress:(float) progress setDelegate:(BOOL) setDelegate animate:(BOOL) animate {
-    NSLog(@"---------------------(15)setFlipProgress:setDelegate:animate:");
     if (animate) {
         animating = YES;
     }
@@ -285,14 +282,13 @@
 	[CATransaction commit];
 	
 	if (setDelegate) {
-		[self performSelector:@selector(cleanupFlip) withObject:Nil afterDelay:duration];
+		[self performSelector:@selector(cleanupFlip) withObject:nil afterDelay:duration];
 	}
 	
 }
 
 - (void) flipPage {
-    NSLog(@"---------------------(14)flipPage");
-	[self setFlipProgress:5.0 setDelegate:YES animate:YES];
+	[self setFlipProgress:1.0 setDelegate:YES animate:YES];
 }
 
 - (void) cleanupFlip 
@@ -300,27 +296,47 @@
 	[backgroundAnimationLayer removeFromSuperlayer];
 	[flipAnimationLayer removeFromSuperlayer];
 	
-	backgroundAnimationLayer = Nil;
-	flipAnimationLayer = Nil;
+	backgroundAnimationLayer = nil;
+	flipAnimationLayer = nil;
 	
 	animating = NO;
 	
+    if (flipDirection == GPageFlipperDirectionLeft) {
+        currentView.alpha = 0.0;
+        nextView.alpha = 1.0;
+        
+        if (prevView != nil) {
+            [prevView removeFromSuperview];
+        }
+        
+        prevView = nil;
+        prevView = currentView;
+        currentView = nextView;
+        nextView = [dataSource nextView:currentView inFlipper:self];
+        if (nextView != nil) {
+            nextView.alpha = 0.0;
+            [self addSubview:nextView];
+        }
+        
+    }else{
+        currentView.alpha = 0.0;
+        prevView.alpha = 1.0;
+        if (nextView != nil) {
+            [nextView removeFromSuperview];
+        }
+        
+        nextView = nil;
+        nextView = currentView;
+        currentView = prevView;
+        prevView = [dataSource prevView:currentView inFlipper:self];
+        if (prevView != nil) {
+            prevView.alpha = 0.0;
+            [self addSubview:prevView];
+        }
+        
+    }
     
-    /*
-	if (setNextViewOnCompletion) {
-		[self.currentView removeFromSuperview];
-		self.currentView = self.nextView;
-		self.nextView = Nil;
-	} else {
-		[self.nextView removeFromSuperview];
-		self.nextView = Nil;
-	}
-     */
     
-	//currentView.alpha = 1;
-    
-    currentView.alpha = 0.0;
-    nextView.alpha = 1.0;
     
 	[self setUserInteractionEnabled:YES];
     

@@ -29,7 +29,7 @@
 -(void) setIndex:(NSInteger)aindex
 {
     index = aindex;
-    NSLog(@"----------------------%d",aindex);
+    //NSLog(@"----------------------%d",aindex);
     NSMutableString *str = [NSMutableString stringWithCapacity:1000];
     for (NSInteger i=0; i<1000; i++) {
         [str appendFormat:@"----------------------%d",aindex];

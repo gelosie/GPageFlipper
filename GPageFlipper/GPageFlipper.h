@@ -48,9 +48,9 @@ typedef enum {
 
 @property (nonatomic, assign, setter = setDataSource:) id<GPageFlipperDataSource> dataSource;
 @property (nonatomic, assign) id<GPageFlipperDelegate> delegate;
-@property (nonatomic,assign) BOOL disabled;
+@property (nonatomic, assign) BOOL disabled;
 
-- (id)initWithView:(UIView *) initView;
+- (id)initWithFrame:(CGRect) frame forView:(UIView *) initView;
 
 @end
 
