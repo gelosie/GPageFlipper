@@ -39,7 +39,8 @@ typedef enum {
     CALayer *flipAnimationLayer;
     
     BOOL animating;
-    BOOL loadedView;
+    BOOL loadedNextView;
+    BOOL loadedPrevView;
     
     float startFlipAngle;
 	float endFlipAngle;

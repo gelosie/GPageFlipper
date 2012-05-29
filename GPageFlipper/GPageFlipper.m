@@ -32,10 +32,11 @@
 #pragma mark - GPageFlipper private method
 @interface GPageFlipper (PrivateGPageFlipper)
 - (void) asynLoadInvisibleView;
-- (void) loadInvisibleView;
+- (void) loadPrevView;
+- (void) loadNextView;
 
 - (void) initFlip;
-- (void) setFlipProgress:(float) progress setDelegate:(BOOL) setDelegate animate:(BOOL) animate;
+- (void) setFlipProgress:(float) progress animate:(BOOL) animate;
 - (void) cleanupFlip;
 - (void) flipPage;
 
@@ -70,7 +71,8 @@
         
         animating = NO;
         disabled = NO;
-        loadedView = NO;
+        loadedNextView = NO;
+        loadedPrevView = NO;
         
         currentView = initView;
         [self addSubview:currentView];
@@ -81,18 +83,24 @@
 
 - (void) tapped:(UITapGestureRecognizer *) recognizer
 {
-    if (animating || self.disabled) {
+    if (animating || self.disabled ) {
 		return;
 	}
-	NSLog(@"----------taped");
+    
 	if (recognizer.state == UIGestureRecognizerStateRecognized) {
 		if ([recognizer locationInView:self].x < (self.bounds.size.width - self.bounds.origin.x) / 2) {
             flipDirection = GPageFlipperDirectionRight;
+            if (!loadedPrevView) {
+                return;
+            }
             if (prevView == nil) {
                 return;
             }
 		} else {
             flipDirection = GPageFlipperDirectionLeft;
+            if (!loadedNextView) {
+                return;
+            }
             if (nextView == nil) {
                 return;
             }
@@ -105,11 +113,29 @@
 
 
 -(void)swiped:(UISwipeGestureRecognizer *)recognizer{
+    if (animating || self.disabled) {
+		return;
+	}
     if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        
+        flipDirection = GPageFlipperDirectionLeft;
+        if (!loadedNextView) {
+            return;
+        }
+        if (nextView == nil) {
+            return;
+        }
     }else if(recognizer.direction == UISwipeGestureRecognizerDirectionRight){
-        
+        flipDirection = GPageFlipperDirectionRight;
+        if (!loadedPrevView) {
+            return;
+        }
+        if (prevView == nil) {
+            return;
+        }
     }
+    animating = YES;
+    [self initFlip];
+    [self performSelector:@selector(flipPage) withObject:nil afterDelay:0.001];
 }
 
 - (void) setDataSource:(id<GPageFlipperDataSource>)aDataSource
@@ -121,26 +147,37 @@
 
 - (void) asynLoadInvisibleView
 {
-    loadedView = NO;
-    [self performSelectorInBackground:@selector(loadInvisibleView) withObject:nil];
+    [self performSelectorInBackground:@selector(loadNextView) withObject:nil];
+    [self performSelectorInBackground:@selector(loadPrevView) withObject:nil];
+    
 }
 
-- (void) loadInvisibleView
+- (void) loadNextView
 {
-    loadedView = NO;
-    if (dataSource != nil) {
-        prevView = [dataSource prevView:currentView inFlipper:self];
-        if (prevView != nil) {
-            prevView.alpha = 0.0;
-            [self addSubview:prevView];
-        }
-        nextView = [dataSource nextView:currentView inFlipper:self];
-        if (nextView != nil) {
-            nextView.alpha = 0.0;
-            [self addSubview:nextView];
-        }
+    loadedNextView = NO;
+    if (nextView != nil) {
+        [nextView removeFromSuperview];
     }
-    loadedView = YES;
+    nextView = [dataSource nextView:currentView inFlipper:self];
+    if (nextView != nil) {
+        nextView.alpha = 0.0;
+        [self addSubview:nextView];
+    }
+    loadedNextView = YES;
+}
+
+- (void) loadPrevView
+{
+    loadedPrevView = NO;
+    if (prevView != nil) {
+        [prevView removeFromSuperview];
+    }
+    prevView = [dataSource prevView:currentView inFlipper:self];
+    if (prevView != nil) {
+        prevView.alpha = 0.0;
+        [self addSubview:prevView];
+    }
+    loadedPrevView = YES;
 }
 
 
@@ -157,8 +194,6 @@
         currentImage = [currentView saveRenderShots];
         newImage = [prevView saveRenderShots];
     }
-	
-	
 	
 	// Hide existing views
 	
@@ -256,7 +291,7 @@
 
 
 
-- (void) setFlipProgress:(float) progress setDelegate:(BOOL) setDelegate animate:(BOOL) animate {
+- (void) setFlipProgress:(float) progress animate:(BOOL) animate {
     if (animate) {
         animating = YES;
     }
@@ -273,22 +308,21 @@
 	
 	[flipAnimationLayer removeAllAnimations];
 	[self setUserInteractionEnabled:NO];
-    
-	[CATransaction begin];
-	[CATransaction setAnimationDuration:duration];
+
+    [UIView animateWithDuration:duration animations:^{
+        flipAnimationLayer.transform = endTransform;
+    } completion:^(BOOL finished) {
+        
+    }];
 	
-	flipAnimationLayer.transform = endTransform;
+	[self performSelector:@selector(cleanupFlip) withObject:nil afterDelay:duration];
 	
-	[CATransaction commit];
-	
-	if (setDelegate) {
-		[self performSelector:@selector(cleanupFlip) withObject:nil afterDelay:duration];
-	}
 	
 }
 
-- (void) flipPage {
-	[self setFlipProgress:1.0 setDelegate:YES animate:YES];
+- (void) flipPage 
+{
+	[self setFlipProgress:1.0 animate:YES];
 }
 
 - (void) cleanupFlip 
@@ -312,12 +346,9 @@
         prevView = nil;
         prevView = currentView;
         currentView = nextView;
-        nextView = [dataSource nextView:currentView inFlipper:self];
-        if (nextView != nil) {
-            nextView.alpha = 0.0;
-            [self addSubview:nextView];
-        }
-        
+        nextView = nil;
+
+        [self performSelectorInBackground:@selector(loadNextView) withObject:nil];
     }else{
         currentView.alpha = 0.0;
         prevView.alpha = 1.0;
@@ -328,19 +359,11 @@
         nextView = nil;
         nextView = currentView;
         currentView = prevView;
-        prevView = [dataSource prevView:currentView inFlipper:self];
-        if (prevView != nil) {
-            prevView.alpha = 0.0;
-            [self addSubview:prevView];
-        }
-        
+        prevView = nil;
+
+        [self performSelectorInBackground:@selector(loadPrevView) withObject:nil];
     }
-    
-    
-    
 	[self setUserInteractionEnabled:YES];
-    
-    
 }
 
 
