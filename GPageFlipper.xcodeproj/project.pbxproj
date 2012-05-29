@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A92496CC1573711300988E56 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92496CB1573711300988E56 /* UIKit.framework */; };
+		A92496CE1573711300988E56 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92496CD1573711300988E56 /* Foundation.framework */; };
+		A92496D01573711300988E56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92496CF1573711300988E56 /* CoreGraphics.framework */; };
+		A92496D61573711300988E56 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A92496D41573711300988E56 /* InfoPlist.strings */; };
+		A92496D81573711300988E56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A92496D71573711300988E56 /* main.m */; };
+		A92496DC1573711300988E56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A92496DB1573711300988E56 /* AppDelegate.m */; };
+		A92496E6157371FB00988E56 /* ColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = A92496E3157371FB00988E56 /* ColorView.m */; };
+		A92496E7157371FB00988E56 /* RootController.m in Sources */ = {isa = PBXBuildFile; fileRef = A92496E5157371FB00988E56 /* RootController.m */; };
+		A92496EA1573727900988E56 /* GPageFlipper.m in Sources */ = {isa = PBXBuildFile; fileRef = A92496E91573727800988E56 /* GPageFlipper.m */; };
+		A92496EC1573741300988E56 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92496EB1573741200988E56 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A92496C71573711300988E56 /* GPageFlipper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GPageFlipper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A92496CB1573711300988E56 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A92496CD1573711300988E56 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A92496CF1573711300988E56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A92496D31573711300988E56 /* GPageFlipper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GPageFlipper-Info.plist"; sourceTree = "<group>"; };
+		A92496D51573711300988E56 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A92496D71573711300988E56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A92496D91573711300988E56 /* GPageFlipper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GPageFlipper-Prefix.pch"; sourceTree = "<group>"; };
+		A92496DA1573711300988E56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A92496DB1573711300988E56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A92496E2157371FB00988E56 /* ColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorView.h; sourceTree = "<group>"; };
+		A92496E3157371FB00988E56 /* ColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorView.m; sourceTree = "<group>"; };
+		A92496E4157371FB00988E56 /* RootController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootController.h; sourceTree = "<group>"; };
+		A92496E5157371FB00988E56 /* RootController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootController.m; sourceTree = "<group>"; };
+		A92496E81573727800988E56 /* GPageFlipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPageFlipper.h; sourceTree = "<group>"; };
+		A92496E91573727800988E56 /* GPageFlipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPageFlipper.m; sourceTree = "<group>"; };
+		A92496EB1573741200988E56 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A92496C41573711300988E56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92496EC1573741300988E56 /* QuartzCore.framework in Frameworks */,
+				A92496CC1573711300988E56 /* UIKit.framework in Frameworks */,
+				A92496CE1573711300988E56 /* Foundation.framework in Frameworks */,
+				A92496D01573711300988E56 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A92496BC1573711300988E56 = {
+			isa = PBXGroup;
+			children = (
+				A92496D11573711300988E56 /* GPageFlipper */,
+				A92496CA1573711300988E56 /* Frameworks */,
+				A92496C81573711300988E56 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A92496C81573711300988E56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A92496C71573711300988E56 /* GPageFlipper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A92496CA1573711300988E56 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A92496EB1573741200988E56 /* QuartzCore.framework */,
+				A92496CB1573711300988E56 /* UIKit.framework */,
+				A92496CD1573711300988E56 /* Foundation.framework */,
+				A92496CF1573711300988E56 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A92496D11573711300988E56 /* GPageFlipper */ = {
+			isa = PBXGroup;
+			children = (
+				A92496E2157371FB00988E56 /* ColorView.h */,
+				A92496E3157371FB00988E56 /* ColorView.m */,
+				A92496E4157371FB00988E56 /* RootController.h */,
+				A92496E5157371FB00988E56 /* RootController.m */,
+				A92496DA1573711300988E56 /* AppDelegate.h */,
+				A92496DB1573711300988E56 /* AppDelegate.m */,
+				A92496D21573711300988E56 /* Supporting Files */,
+				A92496E81573727800988E56 /* GPageFlipper.h */,
+				A92496E91573727800988E56 /* GPageFlipper.m */,
+			);
+			path = GPageFlipper;
+			sourceTree = "<group>";
+		};
+		A92496D21573711300988E56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A92496D31573711300988E56 /* GPageFlipper-Info.plist */,
+				A92496D41573711300988E56 /* InfoPlist.strings */,
+				A92496D71573711300988E56 /* main.m */,
+				A92496D91573711300988E56 /* GPageFlipper-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A92496C61573711300988E56 /* GPageFlipper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A92496DF1573711300988E56 /* Build configuration list for PBXNativeTarget "GPageFlipper" */;
+			buildPhases = (
+				A92496C31573711300988E56 /* Sources */,
+				A92496C41573711300988E56 /* Frameworks */,
+				A92496C51573711300988E56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GPageFlipper;
+			productName = GPageFlipper;
+			productReference = A92496C71573711300988E56 /* GPageFlipper.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A92496BE1573711300988E56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = autov;
+			};
+			buildConfigurationList = A92496C11573711300988E56 /* Build configuration list for PBXProject "GPageFlipper" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A92496BC1573711300988E56;
+			productRefGroup = A92496C81573711300988E56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A92496C61573711300988E56 /* GPageFlipper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A92496C51573711300988E56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92496D61573711300988E56 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A92496C31573711300988E56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92496D81573711300988E56 /* main.m in Sources */,
+				A92496DC1573711300988E56 /* AppDelegate.m in Sources */,
+				A92496E6157371FB00988E56 /* ColorView.m in Sources */,
+				A92496E7157371FB00988E56 /* RootController.m in Sources */,
+				A92496EA1573727900988E56 /* GPageFlipper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A92496D41573711300988E56 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A92496D51573711300988E56 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A92496DD1573711300988E56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		A92496DE1573711300988E56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A92496E01573711300988E56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GPageFlipper/GPageFlipper-Prefix.pch";
+				INFOPLIST_FILE = "GPageFlipper/GPageFlipper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A92496E11573711300988E56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GPageFlipper/GPageFlipper-Prefix.pch";
+				INFOPLIST_FILE = "GPageFlipper/GPageFlipper-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A92496C11573711300988E56 /* Build configuration list for PBXProject "GPageFlipper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A92496DD1573711300988E56 /* Debug */,
+				A92496DE1573711300988E56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A92496DF1573711300988E56 /* Build configuration list for PBXNativeTarget "GPageFlipper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A92496E01573711300988E56 /* Debug */,
+				A92496E11573711300988E56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A92496BE1573711300988E56 /* Project object */;
+}
