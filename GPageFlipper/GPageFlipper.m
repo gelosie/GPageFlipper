@@ -38,6 +38,9 @@
 - (void) setFlipProgress:(float) progress setDelegate:(BOOL) setDelegate animate:(BOOL) animate;
 - (void) cleanupFlip;
 - (void) flipPage;
+
+- (void) swiped:(UISwipeGestureRecognizer *)recognizer;
+- (void) tapped:(UITapGestureRecognizer *) recognizer;
 @end
 
 #pragma mark - GPageFlipper implementation
@@ -55,13 +58,15 @@
 {
     self = [super initWithFrame:initView.frame];
     if (self) {
+        
         UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-		UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panned:)];
-		
-		[tapRecognizer requireGestureRecognizerToFail:panRecognizer];
-		
+		UISwipeGestureRecognizer *leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swiped:)];
+        leftSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(channelCovswipederDidSwipe:)];
+        rightSwipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
         [self addGestureRecognizer:tapRecognizer];
-		[self addGestureRecognizer:panRecognizer];
+        [self addGestureRecognizer:leftSwipeRecognizer];
+        [self addGestureRecognizer:rightSwipeRecognizer];
         
         animating = NO;
         disabled = NO;
@@ -72,6 +77,7 @@
     }
     return self;
 }
+
 
 - (void) tapped:(UITapGestureRecognizer *) recognizer
 {
@@ -102,100 +108,13 @@
     [self performSelector:@selector(flipPage) withObject:Nil afterDelay:0.001];
 }
 
-- (void) panned:(UIPanGestureRecognizer *) recognizer
-{
-    //NSLog(@"---------------------(04)panned:");
-    if (animating) {
-        return;
+
+-(void)swiped:(UISwipeGestureRecognizer *)recognizer{
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+
+    }else if(recognizer.direction == UISwipeGestureRecognizerDirectionRight){
+        
     }
-    /*
-	static BOOL hasFailed;
-	static BOOL initialized;
-	
-	static NSInteger oldPage;
-    
-	float translation = [recognizer translationInView:self].x;
-	
-	float progress = translation / self.bounds.size.width;
-	
-	if (flipDirection == GPageFlipperDirectionLeft) {
-		progress = MIN(progress, 0);
-	} else {
-		progress = MAX(progress, 0);
-	}
-	
-	switch (recognizer.state) {
-		case UIGestureRecognizerStateBegan:
-			hasFailed = FALSE;
-			initialized = FALSE;
-			animating = NO;
-			//setNextViewOnCompletion = NO;
-			break;
-			
-			
-		case UIGestureRecognizerStateChanged:
-			
-			if (hasFailed) {
-				return;
-			}
-			
-			if (!initialized) {
-				oldPage = self.currentPage;
-				
-				if (translation > 0) {
-					if (self.currentPage > 1) {
-						[self doSetCurrentPage:self.currentPage - 1];
-					} else {
-						hasFailed = TRUE;
-						return;
-					}
-				} else {
-					if (self.currentPage < numberOfPages) {
-						[self doSetCurrentPage:self.currentPage + 1];
-					} else {
-						hasFailed = TRUE;
-						return;
-					}
-				}
-				
-				hasFailed = NO;
-				initialized = TRUE;
-				setNextViewOnCompletion = NO;
-				
-				[self initFlip];
-			}
-			
-			[self setFlipProgress:fabs(progress) setDelegate:NO animate:NO];
-			
-			break;
-			
-			
-		case UIGestureRecognizerStateFailed:
-			[self setFlipProgress:0.0 setDelegate:YES animate:YES];
-			currentPage = oldPage;
-			break;
-			
-		case UIGestureRecognizerStateRecognized:
-			if (hasFailed) {
-				[self setFlipProgress:0.0 setDelegate:YES animate:YES];
-				currentPage = oldPage;
-				
-				return;
-			}
-			
-			if (fabs((translation + [recognizer velocityInView:self].x / 4) / self.bounds.size.width) > 0.5) {
-				setNextViewOnCompletion = YES;
-				[self setFlipProgress:1.0 setDelegate:YES animate:YES];
-			} else {
-				[self setFlipProgress:0.0 setDelegate:YES animate:YES];
-				currentPage = oldPage;
-			}
-            
-			break;
-		default:
-			break;
-	}
-     */
 }
 
 - (void) setDataSource:(id<GPageFlipperDataSource>)aDataSource
