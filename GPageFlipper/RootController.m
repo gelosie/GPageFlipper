@@ -41,12 +41,16 @@
     [super loadView];
     self.view.autoresizesSubviews = YES;
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-
+    
 	flipper = [[GPageFlipper alloc]initWithFrame:CGRectMake(100.0, 100.0, 300.0, 300.0)];
 	flipper.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	flipper.dataSource = self;
     //[flipper loadInvisibleView];
 	[self.view addSubview:flipper];
+    
+    ColorView *iv = [[ColorView alloc]initWithFrame:flipper.bounds];
+    [iv  setIndex : 0];
+    [flipper setCurrentView:iv animated:YES];
 }
 
 
@@ -60,14 +64,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
-}
-
-
-- (UIView *) currentViewToInitFlipper:(GPageFlipper *) pageFlipper
-{
-    ColorView *iv = [[ColorView alloc]initWithFrame:pageFlipper.bounds];
-    [iv  setIndex : 0];
-    return iv;
 }
 
 - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper

@@ -18,7 +18,6 @@ typedef enum {
 
 @protocol GPageFlipperDataSource
 
-- (UIView *) currentViewToInitFlipper:(GPageFlipper *) pageFlipper; // init current view
 - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
 - (UIView *) prevView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper;
 
@@ -49,10 +48,11 @@ typedef enum {
 	float currentAngle;
 }
 
-@property (nonatomic, assign, setter = setDataSource:) id<GPageFlipperDataSource> dataSource;
+@property (nonatomic, assign) id<GPageFlipperDataSource> dataSource;
 @property (nonatomic, assign) id<GPageFlipperDelegate> delegate;
 @property (nonatomic, assign) BOOL disabled;
 
+- (void) setCurrentView:(UIView *)view animated:(BOOL) animated;
 
 @end
 

@@ -42,8 +42,6 @@
 
 - (void) swiped:(UISwipeGestureRecognizer *)recognizer;
 - (void) tapped:(UITapGestureRecognizer *) recognizer;
-
-- (void) initCurrentView;
 @end
 
 #pragma mark - GPageFlipper implementation
@@ -137,18 +135,20 @@
     [self performSelector:@selector(flipPage) withObject:nil afterDelay:0.001];
 }
 
-- (void) setDataSource:(id<GPageFlipperDataSource>)aDataSource
+- (void) setCurrentView:(UIView *)view animated:(BOOL) animated
 {
-    dataSource = aDataSource;
-    //[self asynLoadInvisibleView];
-    [self performSelectorInBackground:@selector(initCurrentView) withObject:nil];
-}
-
-- (void) initCurrentView
-{
-    currentView = [dataSource currentViewToInitFlipper:self];
+    currentView = view;
     currentView.frame = self.bounds;
     [self addSubview:currentView];
+    if (animated) {
+        currentView.alpha = 0.0;
+        [UIView animateWithDuration:1.0 animations:^{
+            currentView.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+    
     [self asynLoadInvisibleView];
 }
 
