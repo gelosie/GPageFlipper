@@ -137,6 +137,10 @@
 
 - (void) setCurrentView:(UIView *)view animated:(BOOL) animated
 {
+    if (currentView != nil) {
+        [currentView removeFromSuperview];
+        currentView = nil;
+    }
     currentView = view;
     currentView.frame = self.bounds;
     [self addSubview:currentView];
