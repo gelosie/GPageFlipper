@@ -165,32 +165,36 @@
 
 - (void) loadNextView
 {
-    loadedNextView = NO;
-    if (nextView != nil) {
-        [nextView removeFromSuperview];
+    @autoreleasepool{
+        loadedNextView = NO;
+        if (nextView != nil) {
+            [nextView removeFromSuperview];
+        }
+        nextView = [dataSource nextView:currentView inFlipper:self];
+        if (nextView != nil) {
+            nextView.frame = self.bounds;
+            nextView.alpha = 0.0;
+            [self addSubview:nextView];
+        }
+        loadedNextView = YES;
     }
-    nextView = [dataSource nextView:currentView inFlipper:self];
-    if (nextView != nil) {
-        nextView.frame = self.bounds;
-        nextView.alpha = 0.0;
-        [self addSubview:nextView];
-    }
-    loadedNextView = YES;
 }
 
 - (void) loadPrevView
 {
-    loadedPrevView = NO;
-    if (prevView != nil) {
-        [prevView removeFromSuperview];
+    @autoreleasepool{
+        loadedPrevView = NO;
+        if (prevView != nil) {
+            [prevView removeFromSuperview];
+        }
+        prevView = [dataSource prevView:currentView inFlipper:self];
+        if (prevView != nil) {
+            prevView.frame = self.bounds;
+            prevView.alpha = 0.0;
+            [self addSubview:prevView];
+        }
+        loadedPrevView = YES;
     }
-    prevView = [dataSource prevView:currentView inFlipper:self];
-    if (prevView != nil) {
-        prevView.frame = self.bounds;
-        prevView.alpha = 0.0;
-        [self addSubview:prevView];
-    }
-    loadedPrevView = YES;
 }
 
 

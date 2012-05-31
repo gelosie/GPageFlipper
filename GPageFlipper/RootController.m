@@ -69,9 +69,6 @@
 - (UIView *) nextView:(UIView *) currentView inFlipper:(GPageFlipper *) pageFlipper
 {
     NSInteger i = ((ColorView *)currentView).index;
-    if (i>10) {
-        return nil;
-    }
     i++;
     ColorView *cv = [[ColorView alloc]initWithFrame:pageFlipper.bounds];
     [cv  setIndex :i];
