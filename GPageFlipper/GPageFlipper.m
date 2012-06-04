@@ -51,9 +51,6 @@
 @synthesize dataSource;
 @synthesize disabled;
 
-+ (Class) layerClass {
-	return [CATransformLayer class];
-}
 
 - (id)initWithFrame:(CGRect) frame
 {
