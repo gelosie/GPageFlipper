@@ -19,8 +19,8 @@ GPageFlipper is modify from AFKPageFlipper (https://github.com/mtabini/AFKPageFl
         - (UIView *) viewForPage:(NSInteger) page inFlipper:(AFKPageFlipper *) pageFlipper;
     @end
 
+Enjoy it.
 
-Enjoty it.
 
 
 
